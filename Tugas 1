@@ -1,0 +1,156 @@
+using System;
+using System.Collections.Generic;
+using System.IO.Pipes;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Tugas_Praktikum_PBO_1
+{
+    public class Program
+    {
+        static void Main(string[] args)
+        {
+            KebunBinatang kebunBinatang = new KebunBinatang();
+            singa singa = new singa();
+            singa.Nama = "Simba";
+            singa.Umur = "10 tahun";
+            singa.JumlahKaki = 4;
+            kebunBinatang.TambahHewan(singa);
+
+            Gajah gajah = new Gajah();
+            gajah.Nama = "Rapli";
+            gajah.Umur = "20 tahun";
+            gajah.JumlahKaki = 4;
+            kebunBinatang.TambahHewan(gajah);
+
+            Ular ular = new Ular();
+            ular.Nama = "Garaga";
+            ular.Umur = "5 tahun";
+            ular.PanjangTubuh = 5.5;
+            kebunBinatang.TambahHewan(ular);
+
+            Buaya buaya = new Buaya();
+            buaya.Nama = "Joko";
+            buaya.Umur = "15 tahun";
+            buaya.PanjangTubuh = 7.5;
+            kebunBinatang.TambahHewan(buaya);
+
+            kebunBinatang.DaftarHewan();
+            
+            singa.Mengaum();
+            Console.WriteLine(singa.Suara());
+            Console.WriteLine(gajah.Suara());
+            ular.Merayap();
+            Console.WriteLine(ular.Suara());
+            Console.WriteLine(buaya.Suara());  
+        }
+    }
+    public class Hewan
+    {
+        public string Nama;
+        public string Umur;
+
+        public virtual string Suara()
+        {
+            return "Hewan ini bersuara";
+        }
+
+        public virtual string InfoHewan()
+        {
+            return $"Nama: {Nama}, Umur: {Umur}";
+        }
+    }
+    public class Mamalia : Hewan
+    {
+        public int JumlahKaki;
+        public override string Suara()
+        {
+            return "Hewan ini bersuara: ";
+        }
+        public override string InfoHewan()
+        {
+            return $"Nama: {Nama}, Umur: {Umur}, Jumlah Kaki: {JumlahKaki}";
+        }
+    }
+    public class Reptil : Hewan
+    {
+        public double PanjangTubuh;
+
+        public override string Suara()
+        {
+            return "Hewan ini bersuara: ";
+        }
+        public override string InfoHewan()
+        {
+            return $"Nama: {Nama}, Umur: {Umur}, Panjang Tubuh: {PanjangTubuh}";
+        }
+    }
+    public class singa : Mamalia
+    {
+        public override string Suara()
+        {
+            return "Singa ini bersuara: Roar Roar";
+        }
+        public override string InfoHewan()
+        {
+            return $"Nama: {Nama}, Umur: {Umur}, Jumlah Kaki: {JumlahKaki}";
+        }
+        public void Mengaum()
+        {
+            Console.WriteLine("Singa sedang mengaum");
+        }
+    }
+    public class Gajah : Mamalia
+    {
+        public override string Suara()
+        {
+            return "Gajah ini bersuara: Uu Uu";
+        }
+        public override string InfoHewan()
+        {
+            return $"Nama: {Nama}, Umur: {Umur}, Jumlah Kaki: {JumlahKaki}";
+        }
+    }
+    public class Ular : Reptil
+    {
+        public override string Suara()
+        {
+            return "Ular ini bersuara: Sss Sss";
+        }
+        public override string InfoHewan()
+        {
+            return $"Nama: {Nama}, Umur: {Umur}, Panjang Tubuh: {PanjangTubuh}";
+        }
+        public void Merayap()
+        {
+            Console.WriteLine("Ular sedang merayap");
+        }
+    }
+    public class Buaya : Reptil
+    {
+        public override string Suara()
+        {
+            return "Buaya ini bersuara: Krok Krok";
+        }
+        public override string InfoHewan()
+        {
+            return $"Nama: {Nama}, Umur: {Umur}, Panjang Tubuh: {PanjangTubuh}";
+        }
+    }
+    public class KebunBinatang
+    {
+        private List<Hewan> koleksihewan = new List<Hewan>();
+        public void TambahHewan(Hewan hewan)
+        {
+            this.koleksihewan.Add(hewan);
+        }
+        public void DaftarHewan()
+        {
+            for (int i = 0; i < koleksihewan.Count; i++)
+            {
+                Console.WriteLine(koleksihewan[i].InfoHewan());
+            }
+        }
+    }
+}
